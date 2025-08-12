@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영상 전체화면</title>
+    <style>
+        body {
+            margin: 0;
+            background: black;
+        }
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <video id="myVideo" autoplay muted playsinline>
+        <source src="1F_v0.3.0.mp4" type="video/mp4">
+        브라우저가 video 태그를 지원하지 않습니다.
+    </video>
+
+    <script>
+        const video = document.getElementById('myVideo');
+
+        // 페이지 로드 시 바로 전체화면 시도
+        window.addEventListener('load', () => {
+            video.play().then(() => {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) { // Safari
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) { // IE/Edge 구버전
+                    video.msRequestFullscreen();
+                }
+            }).catch(err => {
+                console.log("자동재생 실패:", err);
+            });
+        });
+    </script>
+</body>
+</html>
